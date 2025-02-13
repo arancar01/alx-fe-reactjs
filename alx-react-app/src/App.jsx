@@ -8,6 +8,7 @@ import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import UserProfile from './components/UserProfile';
 
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -40,12 +41,14 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
 
-      {/* استخدام مكون UserProfile وتم إغلاقه بشكل صحيح */}
-      <UserProfile 
-        name="Alice" 
-        age="25" 
-        bio="Loves hiking and photography" 
-      />
+      <h1>Welcome to My React App</h1>
+            
+            {/* استخدام مكون UserProfile وتمرير البيانات كمُدخلات (props) */}
+            <UserProfile 
+                name="Alice" 
+                age="25" 
+                bio="Loves hiking and photography" 
+            />
 
       {/* إضافة مكونات الصفحة الرئيسية */}
       <Header />
