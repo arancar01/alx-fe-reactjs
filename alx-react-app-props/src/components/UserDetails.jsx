@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import UserContext from './UserContext';
+import UserContext from './UserContext'; // تعديل المسار
 
 function UserDetails() {
-  const userData = useContext(UserContext);
+  const userData = useContext(UserContext); // استهلاك البيانات من الـ Context
 
   return (
     <div>
