@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import UserContext from './UserContext';
 
 function UserDetails() {
-  // استهلاك البيانات من الـ Context
   const userData = useContext(UserContext);
 
   return (
@@ -14,4 +13,3 @@ function UserDetails() {
 }
 
 export default UserDetails;
-
