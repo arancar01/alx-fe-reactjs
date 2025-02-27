@@ -1,19 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // استيراد التوجيه
-import RecipeList from './components/RecipeList'; // استيراد مكون قائمة الوصفات
-import RecipeDetails from './components/RecipeDetails'; // استيراد مكون تفاصيل الوصفة
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RecipeList from './components/RecipeList';
+import RecipeDetails from './components/RecipeDetails';
+import AddRecipeForm from './components/AddRecipeForm';  // استيراد AddRecipeForm
 
 function App() {
   return (
-    <Router> 
+    <Router>
       <div>
-        <h1>Recipe Sharing Application</h1>
+        <h1>Recipe Sharing App</h1>
+        
+        {/* عرض نموذج إضافة وصفة */}
+        <AddRecipeForm />
 
         <Routes>
-          {/* المسار لعرض جميع الوصفات */}
           <Route path="/" element={<RecipeList />} />
-          
-          {/* المسار لتفاصيل الوصفة مع ID */}
           <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
       </div>
