@@ -1,35 +1,37 @@
 import create from 'zustand';
 
-const useRecipeStore = create(set => ({
+const useRecipeStore = create((set) => ({
   recipes: [],
   searchTerm: '',
-  filteredRecipes: [],
-  
-  setRecipes: (recipes) => set({ recipes, filteredRecipes: recipes }),
 
-  setSearchTerm: (term) => set(state => {
-    const filtered = state.recipes.filter(recipe =>
-      recipe.title.toLowerCase().includes(term.toLowerCase())
-    );
-    return { searchTerm: term, filteredRecipes: filtered };
-  }),
+  // تحديث مصطلح البحث
+  setSearchTerm: (term) => set({ searchTerm: term }),
 
-  addRecipe: (newRecipe) => set(state => ({
-    recipes: [...state.recipes, newRecipe],
-    filteredRecipes: [...state.filteredRecipes, newRecipe]
-  })),
+  // إضافة وصفات جديدة
+  addRecipe: (newRecipe) =>
+    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
 
-  deleteRecipe: (id) => set(state => {
-    const updatedRecipes = state.recipes.filter(recipe => recipe.id !== id);
-    return { recipes: updatedRecipes, filteredRecipes: updatedRecipes };
-  }),
+  // حذف وصفة
+  deleteRecipe: (id) =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+    })),
 
-  updateRecipe: (updatedRecipe) => set(state => {
-    const updatedRecipes = state.recipes.map(recipe =>
-      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-    );
-    return { recipes: updatedRecipes, filteredRecipes: updatedRecipes };
-  })
+  // تحديث وصفة
+  updateRecipe: (updatedRecipe) =>
+    set((state) => ({
+      recipes: state.recipes.map((recipe) =>
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+      ),
+    })),
+
+  // البحث عن الوصفات بناءً على العنوان
+  filteredRecipes: () =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
+    })),
 }));
 
 export default useRecipeStore;
