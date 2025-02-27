@@ -1,31 +1,19 @@
-import React, { useEffect } from 'react';
 import { useRecipeStore } from './recipeStore';
+import { Link } from 'react-router-dom';  // استيراد Link من react-router-dom
 
 const RecipeList = () => {
-  // جلب الوصفات المفلترة من Zustand
-  const { recipes, filteredRecipes } = useRecipeStore((state) => ({
-    recipes: state.recipes,
-    filteredRecipes: state.filteredRecipes(),
-  }));
-
-  useEffect(() => {
-    // تطبيق الفلترة عندما يتغير مصطلح البحث
-    filteredRecipes();
-  }, [filteredRecipes]);
+  const recipes = useRecipeStore(state => state.filteredRecipes);  // استخدام الوصفات المفلترة
 
   return (
     <div>
-      <h2>Recipe List</h2>
-      {recipes.length === 0 ? (
-        <p>No recipes available</p>
-      ) : (
-        recipes.map((recipe) => (
-          <div key={recipe.id}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
-          </div>
-        ))
-      )}
+      {recipes.map(recipe => (
+        <div key={recipe.id}>
+          <h3>
+            <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>  {/* ربط الوصفة بتفاصيلها */}
+          </h3>
+          <p>{recipe.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
