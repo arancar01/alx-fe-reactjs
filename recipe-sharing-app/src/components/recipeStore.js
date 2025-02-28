@@ -3,6 +3,18 @@ import { create } from 'zustand';
 const useRecipeStore = create((set) => ({
   recipes: [],
 
+  // ✅ خاصية البحث
+  searchTerm: '',
+  setSearchTerm: (term) => set({ searchTerm: term }),
+
+  // ✅ تصفية الوصفات حسب البحث
+  filteredRecipes: [],
+  filterRecipes: () => set((state) => ({
+    filteredRecipes: state.recipes.filter(recipe =>
+      recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+    ),
+  })),
+
   // ✅ إضافة وصفة جديدة
   addRecipe: (recipe) => set((state) => ({
     recipes: [...state.recipes, { id: Date.now(), ...recipe }],
