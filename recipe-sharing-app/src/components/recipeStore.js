@@ -3,6 +3,23 @@ import { create } from 'zustand';
 const useRecipeStore = create((set) => ({
   recipes: [],
 
+  // ✅ إضافة وصفة جديدة
+  addRecipe: (recipe) => set((state) => ({
+    recipes: [...state.recipes, { id: Date.now(), ...recipe }],
+  })),
+
+  // ✅ حذف وصفة
+  deleteRecipe: (recipeId) => set((state) => ({
+    recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
+  })),
+
+  // ✅ تحديث وصفة
+  updateRecipe: (updatedRecipe) => set((state) => ({
+    recipes: state.recipes.map((recipe) =>
+      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+    ),
+  })),
+
   // ✅ المفضلة (Favorites)
   favorites: [],
   addFavorite: (recipeId) => set((state) => ({
@@ -15,7 +32,6 @@ const useRecipeStore = create((set) => ({
   // ✅ التوصيات (Recommendations)
   recommendations: [],
   generateRecommendations: () => set((state) => {
-    // منطق التوصية (مثال عشوائي)
     const recommended = state.recipes.filter((recipe) =>
       state.favorites.includes(recipe.id) && Math.random() > 0.5
     );
