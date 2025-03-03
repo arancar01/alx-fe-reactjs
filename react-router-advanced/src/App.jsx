@@ -27,7 +27,7 @@ const App = () => {
         />
         
         {/* مسار BlogPost ديناميكي */}
-        <Route path="blog/:id" element={<BlogPost />} />  {/* هنا نضيف مسار ديناميكي للمقالات */}
+        <Route path="/blog/:id" element={<BlogPost />} />  {/* هنا نضيف مسار ديناميكي للمقالات */}
         
         <Route path="*" element={<NotFound />} />
       </Routes>
