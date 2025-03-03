@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import ProfileDetails from './components/ProfileDetails';  // مسار إلى ProfileDetails
-import ProfileSettings from './components/ProfileSettings';  // مسار إلى ProfileSettings
+import ProfileDetails from './ProfileDetails';  // مسار إلى ProfileDetails
+import ProfileSettings from './ProfileSettings';  // مسار إلى ProfileSettings
 
 const Profile = () => {
   return (
@@ -30,4 +30,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
