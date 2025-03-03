@@ -4,10 +4,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
-import Profile from './components/Profile';
 import NotFound from './components/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 import BlogPost from './components/BlogPost';  // تأكد من استيراد مكون BlogPost بشكل صحيح
+import Profile from './components/Profile';
 
 const App = () => {
   return (

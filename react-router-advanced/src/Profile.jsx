@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import ProfileDetails from './ProfileDetails';  // تأكد من إنشاء هذا المكون
-import ProfileSettings from './ProfileSettings';  // تأكد من إنشاء هذا المكون
+import ProfileDetails from './components/ProfileDetails';  // مسار إلى ProfileDetails
+import ProfileSettings from './components/ProfileSettings';  // مسار إلى ProfileSettings
 
 const Profile = () => {
   return (
@@ -12,15 +12,15 @@ const Profile = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/profile/details">Details</Link> {/* رابط للانتقال إلى ProfileDetails */}
+            <Link to="details">Details</Link> {/* رابط للانتقال إلى ProfileDetails */}
           </li>
           <li>
-            <Link to="/profile/settings">Settings</Link> {/* رابط للانتقال إلى ProfileSettings */}
+            <Link to="settings">Settings</Link> {/* رابط للانتقال إلى ProfileSettings */}
           </li>
         </ul>
       </nav>
 
-      {/* مسارات فرعية */}
+      {/* المسارات الفرعية */}
       <Routes>
         <Route path="details" element={<ProfileDetails />} /> {/* المسار الفرعي للـ ProfileDetails */}
         <Route path="settings" element={<ProfileSettings />} /> {/* المسار الفرعي للـ ProfileSettings */}
@@ -30,3 +30,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
