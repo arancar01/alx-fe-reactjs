@@ -11,10 +11,14 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // استخدام useQuery لجلب البيانات
+  // استخدام useQuery مع الخيارات الإضافية
   const { data, isError, error, isLoading, refetch } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts,
+    cacheTime: 1000 * 60 * 5, // الاحتفاظ بالبيانات في الذاكرة لمدة 5 دقائق
+    staleTime: 1000 * 60 * 2, // اعتبار البيانات غير قديمة بعد دقيقتين
+    refetchOnWindowFocus: true, // إعادة الجلب عند العودة إلى النافذة
+    keepPreviousData: true, // الحفاظ على البيانات السابقة أثناء جلب جديدة
   });
 
   if (isLoading) return <p>Loading posts...</p>;
