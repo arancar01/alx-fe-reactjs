@@ -8,14 +8,13 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = {};
+
     if (!username) newErrors.username = 'Username is required';
     if (!email) newErrors.email = 'Email is required';
     if (!password) newErrors.password = 'Password is required';
 
     if (Object.keys(newErrors).length === 0) {
-      // Simulate API submission
       console.log({ username, email, password });
     } else {
       setErrors(newErrors);
@@ -26,29 +25,17 @@ const RegistrationForm = () => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         {errors.username && <div>{errors.username}</div>}
       </div>
       <div>
         <label>Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         {errors.email && <div>{errors.email}</div>}
       </div>
       <div>
         <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         {errors.password && <div>{errors.password}</div>}
       </div>
       <button type="submit">Register</button>
