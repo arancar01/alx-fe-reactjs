@@ -16,7 +16,8 @@ const App = () => {
             <Profile />
           </PrivateRoute>
         } />
-        <Route path="blog/:id" element={<BlogPost />} /> {/* إضافة مسار المدونة */}
+        {/* تأكد من إضافة المسار /blog/:id هنا */}
+        <Route path="blog/:id" element={<BlogPost />} /> {/* المسار الذي يتطلب معرف المدونة */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
