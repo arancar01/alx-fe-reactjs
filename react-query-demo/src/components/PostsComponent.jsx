@@ -12,13 +12,13 @@ const fetchPosts = async () => {
 
 const PostsComponent = () => {
   // استخدام useQuery لجلب البيانات
-  const { data, error, isLoading, refetch } = useQuery({
+  const { data, isError, error, isLoading, refetch } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
