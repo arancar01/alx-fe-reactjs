@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import FormikForm from './components/FormikForm';
 
 const App = () => {
   // Controlled Components Form
@@ -17,24 +16,17 @@ const App = () => {
     if (!password) newErrors.password = 'Password is required';
 
     if (Object.keys(newErrors).length === 0) {
-      // Simulate API submission
       console.log({ username, email, password });
     } else {
       setErrors(newErrors);
     }
   };
 
-  // Formik Form
-  const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string().required('Password is required')
-  });
-
   return (
     <div>
       <h1>React Form Handling</h1>
 
+      {/* نموذج باستخدام Controlled Components */}
       <h2>Using Controlled Components</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -67,34 +59,9 @@ const App = () => {
         <button type="submit">Register</button>
       </form>
 
+      {/* نموذج باستخدام Formik */}
       <h2>Using Formik</h2>
-      <Formik
-        initialValues={{ username: '', email: '', password: '' }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // Simulate API submission
-          console.log(values);
-        }}
-      >
-        <Form>
-          <div>
-            <label>Username</label>
-            <Field type="text" name="username" />
-            <ErrorMessage name="username" component="div" />
-          </div>
-          <div>
-            <label>Email</label>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
-          </div>
-          <div>
-            <label>Password</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
-          </div>
-          <button type="submit">Register</button>
-        </Form>
-      </Formik>
+      <FormikForm />
     </div>
   );
 };
