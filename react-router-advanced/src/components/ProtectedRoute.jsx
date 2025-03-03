@@ -2,17 +2,16 @@
 
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';  // تأكد من أن المسار صحيح
 
 const ProtectedRoute = ({ children }) => {
-  // محاكاة حالة التحقق من تسجيل الدخول (يجب استبدال هذا بالتحقق الفعلي)
-  const isAuthenticated = false; // ضع هنا حالة التحقق الفعلي لتسجيل الدخول
+  const { isAuthenticated } = useAuth();  // استخدم الـ useAuth hook
 
   if (!isAuthenticated) {
-    // إذا لم يكن المستخدم مسجلاً دخوله، قم بتوجيهه إلى صفحة تسجيل الدخول أو أي صفحة أخرى
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" />;  // إعادة التوجيه إلى صفحة تسجيل الدخول إذا لم يكن مصادقًا
   }
 
-  return children; // إذا كان مسجلاً دخوله، قم بعرض المكون المحمي
+  return children;  // إذا كان مصادقًا، عرض المحتوى المحمي
 };
 
 export default ProtectedRoute;
