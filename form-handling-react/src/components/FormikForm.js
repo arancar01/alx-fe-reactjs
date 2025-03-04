@@ -1,10 +1,7 @@
-// src/components/FormikForm.js
-
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';  // For validation using Yup
 
-// Defining the validation schema with Yup
 const validationSchema = Yup.object({
   username: Yup.string()
     .min(3, 'Username must be at least 3 characters')
