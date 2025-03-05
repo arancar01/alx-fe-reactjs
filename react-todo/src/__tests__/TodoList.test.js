@@ -1,38 +1,36 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import TodoList from "../components/TodoList";
+// src/__tests__/TodoList.test.js
+import { render, fireEvent, screen } from '@testing-library/react';
+import TodoList from '../TodoList';
 
-test("renders initial todo list", () => {
+test('renders todo list', () => {
   render(<TodoList />);
-  expect(screen.getByText("Learn React")).toBeInTheDocument();
-  expect(screen.getByText("Build a project")).toBeInTheDocument();
+  expect(screen.getByText('Learn React')).toBeInTheDocument();
+  expect(screen.getByText('Write tests')).toBeInTheDocument();
 });
 
-test("adds a new todo", () => {
+test('adds a new todo', () => {
   render(<TodoList />);
+  const input = screen.getByPlaceholderText('Add a new todo');
+  const button = screen.getByText('Add Todo');
   
-  const input = screen.getByTestId("todo-input");
-  const addButton = screen.getByTestId("add-btn");
+  fireEvent.change(input, { target: { value: 'New Todo' } });
+  fireEvent.click(button);
 
-  fireEvent.change(input, { target: { value: "New Task" } });
-  fireEvent.click(addButton);
-
-  expect(screen.getByText("New Task")).toBeInTheDocument();
+  expect(screen.getByText('New Todo')).toBeInTheDocument();
 });
 
-test("toggles a todo", () => {
+test('toggles todo completion', () => {
   render(<TodoList />);
-  
-  const todoItem = screen.getByText("Learn React");
+  const todoItem = screen.getByText('Learn React');
   fireEvent.click(todoItem);
-
-  expect(todoItem).toHaveStyle("text-decoration: line-through");
+  expect(todoItem).toHaveStyle('text-decoration: line-through');
+  fireEvent.click(todoItem);
+  expect(todoItem).toHaveStyle('text-decoration: none');
 });
 
-test("deletes a todo", () => {
+test('deletes a todo', () => {
   render(<TodoList />);
-  
-  const deleteButton = screen.getByTestId("delete-btn-1");
+  const deleteButton = screen.getByText('Delete');
   fireEvent.click(deleteButton);
-
-  expect(screen.queryByText("Learn React")).not.toBeInTheDocument();
+  expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
 });
