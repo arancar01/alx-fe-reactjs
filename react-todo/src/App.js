@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-const AddTodoForm = ({ addTodo }) => {
-  const [newTodo, setNewTodo] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (newTodo) {
-      addTodo(newTodo);
-      setNewTodo('');
-    }
-  };
-
+function App() {
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        value={newTodo} 
-        onChange={(e) => setNewTodo(e.target.value)} 
-        placeholder="Add a new task" 
-      />
-      <button type="submit">Add Todo</button>
-    </form>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
-};
+}
 
-export default AddTodoForm;
+export default App;
