@@ -1,4 +1,3 @@
-// src/components/AddTodoForm.js
 import React, { useState } from 'react';
 
 const AddTodoForm = ({ onAddTodo }) => {
