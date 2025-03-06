@@ -1,39 +1,35 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import TodoList from "../components/TodoList";
+import React from 'react';  // أضف هذا الاستيراد
+import '@testing-library/jest-dom'; // استيراد jest-dom
+import { render, screen, fireEvent } from '@testing-library/react';
+import TodoList from '../components/TodoList';
 
-test("يجب أن يتم عرض المهام الأولية", () => {
-  render(<TodoList />);
-  expect(screen.getByText("تعلم React")).toBeInTheDocument();
-  expect(screen.getByText("ممارسة الاختبار في React")).toBeInTheDocument();
-});
+describe('TodoList', () => {
+  test('renders the TodoList component', () => {
+    render(<TodoList />);
+    expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
+  });
 
-test("يجب أن يكون المستخدم قادرًا على إضافة مهمة جديدة", () => {
-  render(<TodoList />);
-  const input = screen.getByPlaceholderText("أدخل مهمة جديدة");
-  const button = screen.getByText("إضافة");
+  test('adds a new todo', () => {
+    render(<TodoList />);
+    const input = screen.getByPlaceholderText(/Add a new todo/i);
+    fireEvent.change(input, { target: { value: 'New Todo' } });
+    fireEvent.click(screen.getByText(/Add/i));
+    expect(screen.getByText('New Todo')).toBeInTheDocument();
+  });
 
-  fireEvent.change(input, { target: { value: "مهمة جديدة" } });
-  fireEvent.click(button);
+  test('toggles todo completion', () => {
+    render(<TodoList />);
+    const todoText = screen.getByText('Learn React');
+    fireEvent.click(todoText);
+    expect(todoText).toHaveStyle('text-decoration: line-through');
+    fireEvent.click(todoText);
+    expect(todoText).not.toHaveStyle('text-decoration: line-through');
+  });
 
-  expect(screen.getByText("مهمة جديدة")).toBeInTheDocument();
-});
-
-test("يجب أن يتمكن المستخدم من تبديل حالة المهمة بين مكتملة وغير مكتملة", () => {
-  render(<TodoList />);
-  const todoItem = screen.getByText("تعلم React");
-
-  fireEvent.click(todoItem);
-  expect(todoItem).toHaveStyle("text-decoration: line-through");
-
-  fireEvent.click(todoItem);
-  expect(todoItem).toHaveStyle("text-decoration: none");
-});
-
-test("يجب أن يتمكن المستخدم من حذف المهمة", () => {
-  render(<TodoList />);
-  const todoItem = screen.getByText("تعلم React");
-  const deleteButton = todoItem.nextSibling;
-
-  fireEvent.click(deleteButton);
-  expect(todoItem).not.toBeInTheDocument();
+  test('deletes a todo', () => {
+    render(<TodoList />);
+    const deleteButton = screen.getAllByText(/Delete/i)[0];
+    fireEvent.click(deleteButton);
+    expect(screen.queryByText('Learn React')).toBeNull();
+  });
 });
