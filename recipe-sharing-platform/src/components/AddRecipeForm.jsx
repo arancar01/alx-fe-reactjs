@@ -3,13 +3,13 @@ import { useState } from "react";
 const AddRecipeForm = ({ onAddRecipe }) => {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [steps, setSteps] = useState(""); // ✅ تم تعديل الاسم إلى "steps"
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !ingredients || !instructions) {
+    if (!title || !ingredients || !steps) {
       setError("⚠️ يرجى ملء جميع الحقول!");
       return;
     }
@@ -17,15 +17,15 @@ const AddRecipeForm = ({ onAddRecipe }) => {
     const newRecipe = {
       id: Date.now(), // إنشاء ID فريد
       title,
-      ingredients: ingredients.split("\n"), // تقسيم المكونات كل سطر في مصفوفة
-      instructions,
+      ingredients: ingredients.split("\n"), // تقسيم المكونات إلى مصفوفة
+      steps, // ✅ تم تعديل الاسم ليكون "steps"
       image: "https://via.placeholder.com/300", // صورة افتراضية
     };
 
-    onAddRecipe(newRecipe); // تمرير الوصفة إلى الدالة التي تضيفها
+    onAddRecipe(newRecipe); // تمرير الوصفة إلى الصفحة الرئيسية
     setTitle("");
     setIngredients("");
-    setInstructions("");
+    setSteps(""); // ✅ تصفير الحقل بعد الإرسال
     setError("");
   };
 
@@ -54,8 +54,8 @@ const AddRecipeForm = ({ onAddRecipe }) => {
 
         <textarea
           placeholder="خطوات التحضير"
-          value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
+          value={steps} // ✅ تم استخدام steps بدلاً من instructions
+          onChange={(e) => setSteps(e.target.value)}
           rows="4"
           className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
