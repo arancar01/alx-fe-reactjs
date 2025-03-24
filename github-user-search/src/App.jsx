@@ -1,44 +1,75 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import {
+  fetchTopHeadlines,
+  fetchNewsByQuery,
+} from "./services/githubService.js";
 
 function App() {
   const [articles, setArticles] = useState([]);
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
+
+  const getHeadlines = async () => {
+    try {
+      const newsArticles = await fetchTopHeadlines("us");
+      setArticles(newsArticles);
+      setError("");
+    } catch {
+      setError("Failed to fetch top headlines");
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const searchResults = await fetchNewsByQuery(query);
+      setArticles(searchResults);
+      setError("");
+    } catch {
+      setError("Failed to fetch news for query");
+    }
+  };
 
   useEffect(() => {
-    const fetchNews = async () => {
-      const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
-      const today = new Date().toISOString().split("T")[0];
-      const url = `https://newsapi.org/v2/everything?q=Apple&from=${today}&sortBy=popularity&apiKey=${API_KEY}`;
-
-      try {
-        const response = await axios.get(url);
-        setArticles(response.data.articles);
-      } catch (error) {
-        console.error("فشل جلب الأخبار:", error);
-      }
-    };
-
-    fetchNews();
+    getHeadlines();
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">أخبار Apple</h1>
-      <ul className="space-y-4">
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">NewsAPI - News Application</h1>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search news"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="border p-2 rounded mr-2"
+        />
+        <button
+          onClick={handleSearch}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Search
+        </button>
+      </div>
+
+      {error && <p className="text-red-500">{error}</p>}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {articles.map((article, index) => (
-          <li key={index} className="border p-4 rounded">
+          <div key={index} className="border rounded p-4 shadow-md">
+            <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
+            <p className="mb-2">{article.description}</p>
             <a
               href={article.url}
               target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 font-semibold hover:underline"
+              className="text-blue-500 underline"
             >
-              {article.title}
+              Read more
             </a>
-            <p className="text-sm text-gray-600">{article.description}</p>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
