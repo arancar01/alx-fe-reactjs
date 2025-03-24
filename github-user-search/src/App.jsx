@@ -3,6 +3,7 @@ import {
   fetchTopHeadlines,
   fetchNewsByQuery,
 } from "./services/githubService.js";
+import Search from "./components/Search.jsx";
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -69,6 +70,9 @@ function App() {
             </a>
           </div>
         ))}
+        <div className="App">
+          <Search />
+        </div>
       </div>
     </div>
   );
