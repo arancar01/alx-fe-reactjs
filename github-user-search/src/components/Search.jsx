@@ -50,9 +50,13 @@ const Search = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto my-10 p-6 rounded shadow bg-gray-50">
-      <h2 className="text-xl font-bold mb-4">🔍 Basic GitHub User Search</h2>
-      <form onSubmit={handleBasicSearch} className="flex mb-6">
+    <div className="bg-white shadow-md p-6 rounded">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        👤 GitHub User Search
+      </h2>
+
+      {/* 🔍 Basic Search */}
+      <form onSubmit={handleBasicSearch} className="flex gap-2 mb-6">
         <input
           type="text"
           placeholder="Enter GitHub username"
@@ -62,16 +66,19 @@ const Search = () => {
         />
         <button
           type="submit"
-          className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           Search
         </button>
       </form>
 
-      <h2 className="text-xl font-bold mb-4">🧠 Advanced Search</h2>
+      {/* 🧠 Advanced Search */}
+      <h3 className="text-xl font-semibold mb-2 text-gray-700">
+        Advanced Search
+      </h3>
       <form
         onSubmit={handleAdvancedSearch}
-        className="grid grid-cols-1 gap-4 mb-6"
+        className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6"
       >
         <input
           type="text"
@@ -96,17 +103,18 @@ const Search = () => {
         />
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded"
+          className="col-span-full md:col-span-1 bg-green-600 text-white px-4 py-2 rounded"
         >
           Advanced Search
         </button>
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
 
+      {/* 👤 Basic User Info */}
       {userData && (
-        <div className="border rounded p-4 mb-4">
+        <div className="border rounded p-4 bg-gray-50 mb-6">
           <img
             src={userData.avatar_url}
             alt="avatar"
@@ -125,10 +133,14 @@ const Search = () => {
         </div>
       )}
 
+      {/* 🔁 List of Users from Advanced Search */}
       {searchResults.length > 0 && (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-4">
           {searchResults.map((user) => (
-            <div key={user.id} className="border rounded p-4 flex items-center">
+            <div
+              key={user.id}
+              className="border rounded p-4 flex items-center bg-gray-50"
+            >
               <img
                 src={user.avatar_url}
                 alt="avatar"

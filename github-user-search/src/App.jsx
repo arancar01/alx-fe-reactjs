@@ -35,43 +35,54 @@ function App() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">NewsAPI - News Application</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
+        📰 NewsAPI + GitHub User Search
+      </h1>
 
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search news"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="border p-2 rounded mr-2"
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Search
-        </button>
+      {/* 🔍 News Search Section */}
+      <div className="bg-white shadow-md rounded p-4 mb-8">
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">
+          Search News
+        </h2>
+        <div className="flex flex-col md:flex-row gap-2">
+          <input
+            type="text"
+            placeholder="Search news..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="border p-2 rounded w-full"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          >
+            Search
+          </button>
+        </div>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* 🧾 News Results */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         {articles.map((article, index) => (
-          <div key={index} className="border rounded p-4 shadow-md">
-            <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
-            <p className="mb-2">{article.description}</p>
+          <div key={index} className="border rounded shadow-sm p-4 bg-white">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              {article.title}
+            </h2>
+            <p className="text-gray-600 mb-2">{article.description}</p>
             <a
               href={article.url}
               target="_blank"
-              className="text-blue-500 underline"
+              className="text-blue-500 hover:underline"
             >
-              Read more
+              Read more →
             </a>
           </div>
         ))}
       </div>
 
+      {/* 👥 GitHub User Search */}
       <Search />
     </div>
   );
