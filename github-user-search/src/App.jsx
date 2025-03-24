@@ -70,10 +70,9 @@ function App() {
             </a>
           </div>
         ))}
-        <div className="App">
-          <Search />
-        </div>
       </div>
+
+      <Search />
     </div>
   );
 }
